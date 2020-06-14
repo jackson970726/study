@@ -1,0 +1,35 @@
+cd /usr/local
+tar -zxvf mysql-5.7.30-linux-glibc2.12-x86_64.tar.gz
+mv mysql-5.7.30-linux-glibc2.12-x86_64 mysql
+
+创建mysql用户组和用户并修改权限
+groupadd mysql
+useradd -r -g mysql mysql
+
+cd mysql
+创建数据目录并赋予权限
+mkdir -p ./data/mysql
+chown mysql:mysql -R ./data/mysql
+
+配置my.cnf
+vim /etc/my.cnf
+
+内容如下
+
+初始化数据库
+进入mysql的bin目录
+./mysqld --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql/ --datadir=/usr/local/mysql/data/mysql/ --user=mysql --initialize
+
+service mysql start
+
+登录mysql
+修改密码
+set password=password('root');
+设置root账户的host地址（修改了才可以远程连接）
+grant all privileges on *.* to 'root'@'%' identified by 'root';
+flush privileges;
+
+use mysql;
+select host,user from user;
+
+注意防火墙问题
