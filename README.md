@@ -1,6 +1,2 @@
 # study
-## Linux
-
-## Spring
-
-## SpringMVC
+## 持续更新中...
